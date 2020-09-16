@@ -652,16 +652,16 @@ class fortran_scope(fortran_obj):
             if (self.get_type() == INTERFACE_TYPE_ID) or (child.get_type() == INTERFACE_TYPE_ID):
                 continue
             # Check other variables in current scope
-            if child.FQSN in FQSN_dict:
-                if line_number > FQSN_dict[child.FQSN]:
-                    new_diag = fortran_diagnostic(
-                        line_number, message='Variable "{0}" declared twice in scope'.format(child.name),
-                        severity=1, find_word=child.name
-                    )
-                    new_diag.add_related(path=self.file_ast.path, line=FQSN_dict[child.FQSN],
-                                         message='First declaration')
-                    errors.append(new_diag)
-                    continue
+            # if child.FQSN in FQSN_dict:
+            #     if line_number > FQSN_dict[child.FQSN]:
+            #         new_diag = fortran_diagnostic(
+            #             line_number, message='Variable "{0}" declared twice in scope'.format(child.name),
+            #             severity=1, find_word=child.name
+            #         )
+            #         new_diag.add_related(path=self.file_ast.path, line=FQSN_dict[child.FQSN],
+            #                              message='First declaration')
+            #         errors.append(new_diag)
+            #         continue
             # Check for masking from parent scope in subroutines, functions, and blocks
             if (self.parent is not None) and \
                (self.get_type() in (SUBROUTINE_TYPE_ID, FUNCTION_TYPE_ID, BLOCK_TYPE_ID)):
